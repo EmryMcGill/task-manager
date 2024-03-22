@@ -1,6 +1,4 @@
 <script>
-    import Header from "./Header.svelte";
-
     let checked = true
 
 </script>
@@ -54,6 +52,7 @@
         list-style-type: none;
         background-color: whitesmoke;
     }
+
     li {
         margin-bottom: .5rem;
     }
@@ -64,5 +63,15 @@
     .check:checked + .container .menu-icon {
         transform: rotate(180deg);
         transition: .5s;
+    }
+
+    /* small screens */
+    @media only screen and (max-width: 600px) {
+        .container {
+            left: -8em;
+        }
+        ul {
+            width: 6em;
+        }
     }
 </style>
