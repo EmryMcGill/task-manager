@@ -16,8 +16,13 @@ div, h2, h3, p {
     padding: 0;
 }
 
-h3 {
+h2 {
   font-size: 1.1em;
+  font-weight: 600;
+}
+
+h3 {
+  font-size: 1em;
   font-weight: 600;
 }
 
@@ -25,4 +30,7 @@ h3 {
 button {
   width: fit-content;
   height: fit-content;
+  padding: 0;
+  margin: 0;
+  font-family: "Poppins";
 }

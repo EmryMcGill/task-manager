@@ -6,7 +6,7 @@
 <input type='checkbox' class='check' checked={checked} />
 <div class='container'>
     <ul class='menu-list'>
-        <h3 style={'margin-bottom: .5rem'}>Catagories</h3>
+        <h2 style={'margin: .5rem; margin-left: 1rem'}>Catagories</h2>
         <li>item 1</li>
         <li>item 2</li>
         <li>item 3</li>
@@ -19,12 +19,10 @@
 </div>
 
 <style>
+    
     .container {
-        position:fixed;
-        left: -12rem;
         display: flex;
         flex-direction: row;
-        transition: .5s;
     }
     .check {
         display: none;
@@ -45,19 +43,21 @@
     ul {
         margin: 0;
         padding: 0;
-        padding: 1em;
         height: 100vh;
-        width: 10rem;
+        width: 0rem;
+        overflow: hidden;
         display: block;
         list-style-type: none;
         background-color: whitesmoke;
+        transition: 0.5s;
     }
 
     li {
         margin-bottom: .5rem;
+        margin-left: 1rem;
     }
-    .check:checked + .container {
-        left: 0;
+    .check:checked + .container ul {
+        width: 12rem;
         transition: .5s;
     }
     .check:checked + .container .menu-icon {
@@ -65,13 +65,4 @@
         transition: .5s;
     }
 
-    /* small screens */
-    @media only screen and (max-width: 600px) {
-        .container {
-            left: -8em;
-        }
-        ul {
-            width: 6em;
-        }
-    }
 </style>
