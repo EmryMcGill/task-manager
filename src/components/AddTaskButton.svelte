@@ -32,13 +32,14 @@
         margin-right: .2rem;
         border-radius: .2rem;
         color: white;
+        text-wrap: nowrap;
     }
     button:hover {
         cursor: pointer;
         background-color: #27a36f;
     }
     input[type=text] {
-        width: 40%;
+        width: 100%;
         font-family: "Poppins";
         font-size: 1em;
     }
