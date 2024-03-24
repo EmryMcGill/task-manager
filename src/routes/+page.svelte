@@ -2,12 +2,10 @@
     import { onMount } from 'svelte';
     import '../app.css'
     import SideMenu from '../components/SideMenu.svelte';
-    import Task from '../components/Task.svelte'
-
-    import Gun from 'gun';
     import UserAuth from '../components/UserAuth.svelte';
-    import { username } from '../user';
     import TaskList from '../components/TaskList.svelte';
+
+    import { username } from '../user';
 </script>
 
 <div>

@@ -24,19 +24,21 @@
     button {
         display: flex;
         align-items: center;
-        border: none;
-        background-color: var(--primary);
+        border: 2px solid black;
+        background-color: white;
         height: 2rem;
         padding-left: .5rem;
         padding-right: .5rem;
         margin-right: .2rem;
         border-radius: .2rem;
-        color: white;
         text-wrap: nowrap;
+        transition: .1s;
     }
     button:hover {
         cursor: pointer;
-        background-color: #27a36f;
+        background-color: #000000;
+        color: white;
+        transition: .1s;
     }
     input[type=text] {
         width: 100%;

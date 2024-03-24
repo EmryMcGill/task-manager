@@ -49,6 +49,7 @@
         text-wrap: nowrap;
     }
     .trash {
+        display: flex;
         border: none;
         background: none;
         margin-left: auto;
@@ -57,6 +58,7 @@
     .trash-icon {
         width: 1rem;
         height: 1rem;
+        margin: 0;
     }
     .trash-icon:hover {
         transform: scale(1.1);
