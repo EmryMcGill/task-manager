@@ -1,17 +1,60 @@
 <script>
-    let checked = false
+    import { onMount } from "svelte";
+    import { user } from '../user';
 
+    let checked = false
+    let cats = []
+    let isInput = false
+    let newCat = ''
+
+    onMount(() => {
+        getCats()
+    })
+
+    const getCats = () => {
+        cats = []
+        user.get('cats').map().once(async (data, id) => {
+            if (data) {
+                let cat = {
+                    title: data.title,
+                    id: id
+                }
+                if (cat.title) {
+                    cats = [...cats, cat]
+                }
+            }
+        })
+    }
+
+    const handleToggle = () => {
+        checked = !checked
+        getCats()
+    }
+
+    const handleSubmit = () => {
+        isInput = !isInput
+        const date = new Date().toISOString();
+        user.get('cats').get(date).put({title: newCat});
+        newCat = ''
+    }
 </script>
 
 <input type='checkbox' class='check' checked={checked} />
 <div class='container'>
     <ul class='menu-list'>
         <h2 style={'margin: .5rem; margin-left: 1rem'}>Catagories</h2>
-        <li>item 1</li>
-        <li>item 2</li>
-        <li>item 3</li>
+        {#each cats as cat}
+            <li>{cat.title}</li>
+        {/each}
+        {#if isInput}
+        <form on:submit={handleSubmit}>
+            <input type="text" bind:value={newCat} autofocus />
+        </form>
+        {:else}
+        <button class="add-cat-btn" on:click={()=>isInput = !isInput}>+ Add Catagory</button>
+        {/if}
     </ul>
-    <button class='check-label' on:click={()=>checked = !checked}>
+    <button class='check-label' on:click={handleToggle}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="menu-icon w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>          
@@ -64,5 +107,30 @@
         transform: rotate(180deg);
         transition: .5s;
     }
-
+    .add-cat-btn {
+        margin-left: 1rem;
+        background: none;
+        border: 2px solid black;
+        border-radius: .2rem;
+        padding-left: .2rem;
+        padding-right: .2rem;
+        text-wrap: nowrap;
+        transition: .1s;
+    }
+    .add-cat-btn:hover {
+        background-color: black;
+        color: white;
+        transition: .1s;
+        cursor: pointer;
+    }
+    input[type=text] {
+        margin-left: 1rem;
+        width: 8rem;
+        border: none;
+        border-bottom: 1px solid black;
+        background: none;
+    }
+    input[type=text]:focus {
+        outline: none;
+    }
 </style>
