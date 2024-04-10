@@ -6,11 +6,17 @@
     let tasks = []
 
     onMount(() => {
-        //getTasks()
+        getTasks()
     })
 
-    const getTasks = () => {
+    const getTasks = async () => {
         // fetch tasks
+        const response = await fetch('http://localhost:4000/api/todo')
+        const json = await response.json()
+
+        if (response.ok) {
+          tasks = json
+        }
     }
 
     const createTask = (title) => {

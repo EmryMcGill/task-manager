@@ -1,5 +1,6 @@
 require('dotenv').config()
 
+var cors = require('cors');
 const express = require('express')
 const mongoose = require('mongoose')
 const todoRoutes = require('./routes/todos')
@@ -8,6 +9,7 @@ const todoRoutes = require('./routes/todos')
 const app = express()
 
 // middleware
+app.use(cors());
 
 // to get json data from req
 app.use(express.json())
@@ -18,7 +20,9 @@ app.use((req, res, next) => {
 })
 
 // use the routes from the router
-app.use('/api/todos', todoRoutes)
+app.use('/api/todo', todoRoutes)
+
+
 
 // connect to db
 mongoose.connect(process.env.MONGO_URI)
