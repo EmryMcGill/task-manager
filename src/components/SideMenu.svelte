@@ -1,9 +1,8 @@
 <script>
     import { onMount } from "svelte";
-    import { user } from '../user';
 
     let checked = false
-    let cats = []
+    let cats = [{title: 'main', id: new Date().toISOString()}]
     let isInput = false
     let newCat = ''
 
@@ -12,18 +11,7 @@
     })
 
     const getCats = () => {
-        cats = []
-        user.get('cats').map().once(async (data, id) => {
-            if (data) {
-                let cat = {
-                    title: data.title,
-                    id: id
-                }
-                if (cat.title) {
-                    cats = [...cats, cat]
-                }
-            }
-        })
+        // fetch cats
     }
 
     const handleToggle = () => {
@@ -32,9 +20,9 @@
     }
 
     const handleSubmit = () => {
-        isInput = !isInput
-        const date = new Date().toISOString();
-        user.get('cats').get(date).put({title: newCat});
+        // create new cat
+        // create locally
+        cats = [...cats, {title: newCat, id: new Date().toISOString()}]
         newCat = ''
     }
 </script>
@@ -48,7 +36,7 @@
         {/each}
         {#if isInput}
         <form on:submit={handleSubmit}>
-            <input type="text" bind:value={newCat} autofocus />
+            <input type="text" bind:value={newCat} autofocus on:blur={()=>isInput = !isInput} />
         </form>
         {:else}
         <button class="add-cat-btn" on:click={()=>isInput = !isInput}>+ Add Catagory</button>

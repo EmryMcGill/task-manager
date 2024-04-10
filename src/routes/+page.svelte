@@ -2,24 +2,17 @@
     import { onMount } from 'svelte';
     import '../app.css'
     import SideMenu from '../components/SideMenu.svelte';
-    import UserAuth from '../components/UserAuth.svelte';
     import TaskList from '../components/TaskList.svelte';
 
-    import { username } from '../user';
 </script>
 
 <div>
-    {#if $username}
     <div class='content'>
         <SideMenu />
         <div class='col'>
             <TaskList />
         </div>
     </div>
-    {:else}
-    <UserAuth />
-    {/if}
-    
 </div>
 
 

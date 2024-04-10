@@ -2,36 +2,26 @@
     import { onMount } from 'svelte';
     import Task from "./Task.svelte";
     import AddTaskButton from "./AddTaskButton.svelte";
-    import { user } from '../user';
-
 
     let tasks = []
 
     onMount(() => {
-        getTasks()
+        //getTasks()
     })
 
     const getTasks = () => {
-        user.get('tasks').map().once(async (data, id) => {
-            if (data) {
-                let task = {
-                    title: data.title,
-                    id: id
-                }
-                if (task.title) {
-                    tasks = [...tasks, task]
-                }
-            }
-        })
+        // fetch tasks
     }
 
     const createTask = (title) => {
-        const date = new Date().toISOString();
-        user.get('tasks').get(date).put({title: title});
+        // create new task
+        // create locally
+        tasks = [...tasks, {title: title, id: new Date().toISOString()}]
     }
 
     const removeTask = (id) => {
-        user.get('tasks').get(id).put(null)
+        // delete a task
+        // delete locally
         tasks = tasks.filter(task => task.id != id)
     }
 </script>
