@@ -19,22 +19,43 @@
         }
     }
 
-    const createTask = (title) => {
-        // create new task
-        // create locally
-        tasks = [...tasks, {title: title, id: new Date().toISOString()}]
+    const createTask = async (title) => {
+        // post new task
+        const task = { title }
+        console.log('add task')
+        const response = await fetch('http://localhost:4000/api/todo', {
+            method: 'POST',
+            body: JSON.stringify(task),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+
+        if (response.ok) {
+            // add locally
+            const json = await response.json()
+            tasks = [...tasks, json]
+        }
     }
 
-    const removeTask = (id) => {
+    const removeTask = async (id) => {
         // delete a task
-        // delete locally
-        tasks = tasks.filter(task => task.id != id)
+        // tasks = tasks.filter(task => task._id != id)
+        const response = await fetch('http://localhost:4000/api/todo/' + id, {
+            method: 'DELETE',
+        })
+
+        if (response.ok) {
+            // delete locally
+            const json = await response.json()
+            tasks = tasks.filter(task => task._id != json._id)
+        }
     }
 </script>
 
 <div class='task-list'>
     {#each tasks as task}
-        <Task title={task.title} id={task.id} removeTask={removeTask} />
+        <Task title={task.title} id={task._id} removeTask={removeTask} />
     {/each}
     <AddTaskButton createTask={createTask} />
 </div>

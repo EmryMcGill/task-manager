@@ -1,28 +1,57 @@
 <script>
     import { onMount } from "svelte";
+    import { current_cat_store } from '../stores'
 
     let checked = false
-    let cats = [{title: 'main', id: new Date().toISOString()}]
+    let cats = []
     let isInput = false
     let newCat = ''
+    let current_cat
 
-    onMount(() => {
-        getCats()
+    current_cat_store.subscribe((value) => {
+            current_cat = value
     })
 
-    const getCats = () => {
+    onMount(async () => {
+        await getCats()
+
+        console.log(cats)
+        current_cat_store.set(cats[0])
+        console.log(current_cat)
+    })
+
+    const getCats = async () => {
         // fetch cats
+        const response = await fetch('http://localhost:4000/api/catagorie')
+        const json = await response.json()
+
+        if (response.ok) {
+          cats = json
+        }
     }
 
     const handleToggle = () => {
         checked = !checked
-        getCats()
+        getCats().then(console.log(cats))
     }
 
-    const handleSubmit = () => {
-        // create new cat
-        // create locally
-        cats = [...cats, {title: newCat, id: new Date().toISOString()}]
+    const handleSubmit = async () => {
+        // post new task
+        const cat = { title: newCat }
+        const response = await fetch('http://localhost:4000/api/catagorie', {
+            method: 'POST',
+            body: JSON.stringify(cat),
+            headers: {
+                'Content-type': 'application/json'
+            }
+        })
+
+        if (response.ok) {
+            // add locally
+            const json = await response.json()
+            cats = [...cats, json]
+        }
+        
         newCat = ''
     }
 </script>
@@ -32,7 +61,11 @@
     <ul class='menu-list'>
         <h2 style={'margin: .5rem; margin-left: 1rem'}>Catagories</h2>
         {#each cats as cat}
-            <li>{cat.title}</li>
+            {#if cat._id == current_cat._id} 
+                <li style={'font-weight: bold'}>{cat.title}</li>
+            {:else} 
+                <li>{cat.title}</li> 
+            {/if}
         {/each}
         {#if isInput}
         <form on:submit={handleSubmit}>

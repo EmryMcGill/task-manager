@@ -4,6 +4,7 @@ var cors = require('cors');
 const express = require('express')
 const mongoose = require('mongoose')
 const todoRoutes = require('./routes/todos')
+const catagoriesRoutes = require('./routes/catagories')
 
 // create start the express app, stored in 'app'
 const app = express()
@@ -21,7 +22,7 @@ app.use((req, res, next) => {
 
 // use the routes from the router
 app.use('/api/todo', todoRoutes)
-
+app.use('/api/catagorie', catagoriesRoutes)
 
 
 // connect to db
