@@ -36,7 +36,7 @@
     }
 
     const handleSubmit = async () => {
-        // post new task
+        // post new cat
         const cat = { title: newCat }
         const response = await fetch('http://localhost:4000/api/catagorie', {
             method: 'POST',
@@ -54,6 +54,19 @@
         
         newCat = ''
     }
+
+    const removeCat = async (id) => {
+        // delete a cat
+        const response = await fetch('http://localhost:4000/api/catagorie/' + id, {
+            method: 'DELETE',
+        })
+
+        if (response.ok) {
+            // delete locally
+            const json = await response.json()
+            cats = cats.filter(cat => cat._id != json._id)
+        }
+    }
 </script>
 
 <input type='checkbox' class='check' checked={checked} />
@@ -62,7 +75,7 @@
         <h2 style={'margin: .5rem; margin-left: 1rem'}>Catagories</h2>
         {#each cats as cat}
             {#if cat._id == current_cat._id} 
-                <li style={'font-weight: bold'}>{cat.title}</li>
+                <li style={'font-weight: 500'}>{cat.title}<button>X</button></li>
             {:else} 
                 <li>{cat.title}</li> 
             {/if}
@@ -117,8 +130,10 @@
     }
 
     li {
+        display: flex;
         margin-bottom: .5rem;
         margin-left: 1rem;
+        justify-content: space-between;
     }
     .check:checked + .container ul {
         width: 12rem;

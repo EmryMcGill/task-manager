@@ -16,6 +16,7 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"gun": "^0.2020.1239"
+		"gun": "^0.2020.1239",
+		"pocketbase": "^0.21.1"
 	}
 }

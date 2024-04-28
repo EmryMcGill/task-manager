@@ -5,7 +5,7 @@
 </script>
 
 <div class='container'>
-    <button class='checkbox'></button>
+    <button class='checkbox' on:click={removeTask(id)}></button>
     <p>{title}</p>
     <button class='trash' on:click={removeTask(id)}>
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="trash-icon w-6 h-6">

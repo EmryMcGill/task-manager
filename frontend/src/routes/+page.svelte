@@ -3,16 +3,20 @@
     import '../app.css'
     import SideMenu from '../components/SideMenu.svelte';
     import TaskList from '../components/TaskList.svelte';
-
+    import Login from '../components/Login.svelte';
 </script>
 
 <div>
+    {#if true}
+    <Login />
+    {:else}
     <div class='content'>
         <SideMenu />
         <div class='col'>
             <TaskList />
         </div>
     </div>
+    {/if}
 </div>
 
 
