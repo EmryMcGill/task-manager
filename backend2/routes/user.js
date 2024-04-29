@@ -3,6 +3,7 @@ const {
     getUsers,
     getUser,
     postUser,
+    loginUser,
     deleteUser,
     updateUser
 } = require('../userController')
@@ -18,7 +19,9 @@ router.get('/', getUsers)
 router.get('/:id', getUser)
 
 // POST a new todo
-router.post('/', postUser)
+router.post('/register', postUser)
+
+router.post('/login', loginUser)
 
 // DELETE a todo
 router.delete('/:id', deleteUser)

@@ -4,10 +4,11 @@
     import SideMenu from '../components/SideMenu.svelte';
     import TaskList from '../components/TaskList.svelte';
     import Login from '../components/Login.svelte';
+    import { currentUser } from '../stores';
 </script>
 
 <div>
-    {#if true}
+    {#if $currentUser == null}
     <Login />
     {:else}
     <div class='content'>
